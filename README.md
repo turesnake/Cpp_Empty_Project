@@ -30,9 +30,9 @@
 
 然后，打开 **终端**（terminal），**"cd"** 至 本项目的根目录： 
 
-    $ cd .../<appRootDir>/
+    $ cd .../appRootDir/
 
-注意，此处的 <appRootDir> 应替换为实际的根目录名称。 
+注意，此处的 "appRootDir" 应替换为实际的根目录名称。 
 
 接着，运行一份 shell 脚本程序：
 
