@@ -1,6 +1,5 @@
 # Cpp_Empty_Project
-**Cpp_Empty_Project** 是一个 跨平台的，基于cmake工具的，C++空项目
-你可以以此项目为基础，搭建出自己的 跨平台 C++ 程序。
+**Cpp_Empty_Project** 是一个 跨平台的，基于cmake工具的，C++17空项目。你可以以此项目为基础，搭建出自己的 跨平台 C++ 程序。
 
 
 ## 我该下载哪个分支
@@ -33,7 +32,7 @@
 
     $ cd .../<appRootDir>/
 
-注意，此处的 “<appRootDir>” 应替换为实际的根目录名称。 
+注意，此处的 <appRootDir> 应替换为实际的根目录名称。 
 
 接着，运行一份 shell 脚本程序：
 
@@ -73,7 +72,7 @@
 
     $ cd .../<appRootDir>/
 
-注意，此处的 “<appRootDir>” 应替换为实际的根目录名称。
+注意，此处的 <appRootDir> 应替换为实际的根目录名称。
 
 接着，运行一份 shell 脚本程序：
 
