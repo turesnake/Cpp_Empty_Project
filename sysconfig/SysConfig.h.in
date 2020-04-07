@@ -8,6 +8,8 @@
 #define VERSION_MINOR @VERSION_MINOR@
 
 //-- SWITCH_1 是个 option，需要 cmake 动态生成
+// 示范如何创建一个 cmake 自定义变量
+// 最终可以传递到 编译后的 程序体内
 #cmakedefine SWITCH_1
 
 //-- 标明自己所处 OS

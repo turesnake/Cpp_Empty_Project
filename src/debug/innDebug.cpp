@@ -13,16 +13,12 @@
 // 也可替换为 spdlog
 #include <iostream>
 #include <string>
-using std::cout;
-using std::endl;
-using std::flush;
-using std::string;
 
 namespace debug {//---------- namespace: debug --------------//
 
 void tmp_console_inn( const std::string &str_ ){
     // 可被替换为 spdlog 版实现
-    cout << str_ << endl;
+    std::cout << str_ << std::endl;
 }
 
 }//-------------------- namespace: debug end --------------//
