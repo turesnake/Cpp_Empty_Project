@@ -1,5 +1,10 @@
 # Cpp_Empty_Project
-**Cpp_Empty_Project** 是一个 跨平台的，基于cmake工具的，C++17空项目。你可以以此项目为基础，搭建出自己的 跨平台 C++ 程序。
+**Cpp_Empty_Project** 是一个 跨平台的，基于cmake工具的，C++17空项目。
+
+这个一个面相 C++ 新手向的，辅助用项目。
+
+你可以以此项目为基础，搭建出自己的 跨平台 C++ 程序。但由于，cmake 在 win10 平台的使用有点小麻烦（下文提及）。所以这个项目也许更适合那些 Mac/Linux 用户。如果大家有更好的实现跨平台的方式，欢迎交流～
+
 
 
 ## 我该下载哪个分支
@@ -32,7 +37,7 @@
 
     $ cd .../appRootDir/
 
-(注意，此处的 "appRootDir" 应替换为实际的根目录名字) 
+(**注意**，此处的 "appRootDir" 应替换为实际的根目录名字) 
 
 接着，运行一份 shell 脚本程序：
 
@@ -45,7 +50,7 @@
 
 你可以在目录： **.../appRootDir/build/publish/** 中找到可执行文件：**emptyApp**。
 双击它，运行我们的程序!!!
-(注意，此处的 "appRootDir" 应替换为实际的根目录名字)
+(**注意**，此处的 "appRootDir" 应替换为实际的根目录名字)
 
 
 ### Ubuntu 
@@ -72,7 +77,7 @@
 
     $ cd .../appRootDir/
 
-(注意，此处的 "appRootDir" 应替换为实际的根目录名字)
+(**注意**，此处的 "appRootDir" 应替换为实际的根目录名字)
 
 接着，运行一份 shell 脚本程序：
 
@@ -84,7 +89,7 @@
 现在，所有的安装工作都已经 **完成** 了!!!
 
 你可以在目录： **.../appRootDir/build/publish/** 中找到可执行文件：**emptyApp**。
-(注意，此处的 "appRootDir" 应替换为实际的根目录名字)
+(**注意**，此处的 "appRootDir" 应替换为实际的根目录名字)
 
 在 **终端** 中启动它：
 
@@ -114,8 +119,12 @@
 
 ![x64-Clang-Release](Docs/pngs/win10/003.png)
 
-找到 **Build root** 一览，将其值修改为: `${projectDir}\build` ->
-（注意，这一步非常重要，请务必不要遗漏）
+如果 **CMake Settings** 面板中没有 **x64-Clang-Release** 选项，请检查Visual Studio中是否安装了如下组件:
+
+![Check Clang and Cmake](Docs/pngs/win10/clang_and_cmke_check.png)
+
+
+找到 **Build root** 一览，将其值修改为: `${projectDir}\build`（注意，这一步非常重要，请务必不要遗漏）
 
 ![Build root](Docs/pngs/win10/004.png)
 
@@ -149,21 +158,107 @@
 
 你可以在目录 **.../appRootDir/build/publish/** 中，找到可执行文件 **emptyApp.exe**，
 它就是我们的程序本体。
-(注意，此处的 "appRootDir" 应替换为实际的根目录名字)
+(**注意**，此处的 "appRootDir" 应替换为实际的根目录名字)
 
 由于这个程序的 main() 函数中，暂时只有一些 命令行打印函数。如果直接双击运行此 .exe 程序，它可能只会闪出一个命令框，然后立马结束。
-为了有效测试程序，你还可以将这个 .exe 文件，拖动到一个 命令行窗口中，然后按下回车键来启动程序。如果一切正常，命令行窗口会打印如下信息：
+为了有效测试程序，你其实可以将这个 .exe 文件，拖动到一个 命令行窗口中，然后按回车键来启动程序。如果一切正常，命令行窗口会打印如下信息：
 
-![Build All](Docs/pngs/win10/010.png)
+![Build All](Docs/pngs/screenShots/show_1.png)
 
 
 
 # 使用方式
-接下来，我们将介绍，如何使用这个空项目，来组建自己的项目。
-编写中...
+接下来，我们将介绍，如何使用这个空项目，来组建自己的 C++ 项目。
 
 
-## 版权协议遵守 [BSD 3-Clause](LICENSE)
+
+## 构建规则
+我们使用 cmake 工具自动编译和构建项目。最终，项目的可执行目录，就是 `.../appRootDir/build/publish/`。
+在编译构建完毕后，你可以将这个 `publish` 目录，复制到电脑中的任意位置，都不会影响程序的运行。
+
+目录 `publish` 下的 `emptyApp/emptyApp.exe` 文件，就是程序的可执行文件。
+
+程序所依赖的一切附加数据，比如 shaders，jsons，pngs，都将在构建过程中，被复制到 `publish` 目录下。在 Mac/Linux 中，这个复制操作是由 脚本程序 `unix_release.sh, unix_debug.sh` 实现的。在 win10 中，这个复制操作是由 `win.bat` 实现的。整个操作也很简单，就是将 根目录下的 一些文件夹（及其体内的所有文件）复制进 `publish` 目录下。（如果你不愿意修改这些烦人的 脚本程序，你甚至可以手动复制，没有任何问题...）
+
+
+
+## 如何添加 C++ 代码文件（.h/.cpp/.hpp）
+请将所有 C++ 代码文件，放入 `.../appRootDir/src/` 目录下。这个目录的默认设置如下：
+
+![src folder](Docs/pngs/use/src_folder.png)
+
+- 程序主文件: `main.cpp` 放置在 `.../src/main/` 目录中。
+- 目录：`_pch_` 放置一个加速编译效率的文件 `pch.h`(下文会提及)
+- 目录：`debug` 放置一个推荐的 终端打印函数 **debug::log()**, 用来代替 std::iostream
+- 目录：`classA` 放置一组示范用 class 实现代码。
+
+
+原则上，你可以在目录 `src` 下创建任意 子目录（递归）或文件。新增的 **.cpp** 文件，将会被 cmake 自动搜索到并编译。在目前的 cmake 设置中，所以位于目录 `src` （及其递归子目录）下的 **.cpp**， 都会被自动查找到并编译，正如 文件 `CMakeLists.txt` 中所写：
+
+![src files set in cmake](Docs/pngs/use/cmake_1.png)
+
+
+**但是**，`.h` 文件未能实现这份自动化。如果你的某个 目录中，包含 `.h` 文件，并希望它被 cmake 直接查找到，你应该将这个 **新增的目录路径**，添加到文件 `CMakeLists.txt` 中。格式如下：
+
+![h files set in cmake](Docs/pngs/use/cmake_2.png)
+
+
+依葫芦画瓢写进去就行，如果你对这段语法不熟悉，可以学习下 cmake: `target_include_directories` 的用法（废话...）
+
+另一方面，由于目前的 include 路径列表中，已经包含了 `src` 目录。所以，你还有一种选择：
+假设你在 `.../src/B/` 目录下，创建了文件 `B.h`，你可以在 C++文件中直接编写：
+
+    #include "B/B.h"
+
+这种方法虽然繁琐，但省去了对 `CMakeLists.txt` 的改写。
+
+整体上，我推荐大家使用第一种写法，毕竟，在一个项目中，添加目录并不是一件非常频繁的事。尤其是进入到项目中后期。一旦熟悉了 `CMakeLists.txt` 语法格式，添加一个新路径并不会太消耗脑子。
+
+当然，一定还存在更加高效地，自动包含所有 `.h` 文件的写法。如果有，还请大家告诉我（ 我的 cmake 玩得太菜了hhhh...
+
+
+## pch.h 到底是什么
+我们注意到，我在 `src` 目录下放置了个 `_pch_/pch.h` 文件。并且，它还被写进了 `CMakeLists.txt` 中：
+    
+    target_precompile_headers( emptyApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/_pch_/pch.h )
+
+这其实是借用了一个 cmake 3.16 以来支持的新功能：**Precompiled headers (PCH) 预编译头文件**。通俗地讲，如果有一组 `.h`文件，使用频率特别高，比如标准库的那些头文件，那你可以把这些头文件写入这个 `pch.h` 文件中。然后，当 cmake 开启相应功能后，将会在编译阶段，预先将这组 **头文件** 编译成一个 **中间件**，然后把这个 **中间件**, 自动添加进你的每一个 `.cpp` 文件中（是的，你什么都不用做）最终的目的就是 加快编译速度。
+
+当然，如果你安装的 cmake 尚未达到 3.16, 这个功能并不会被触发。所以，保险起见，你也可以手动将 `#include "pch.h"` 这句话写到每个 .cpp 文件头部。
+
+**pch** 文件的使用还有其它注意事项，推荐阅读 [**这篇文章**](https://onqtam.com/programming/2019-12-20-pch-unity-cmake-3-16/)
+
+当然，你也有权彻底不用这个功能...
+
+
+## Unity Build
+在上面推荐的文章中，还介绍了 cmake 3.16 以来的另一个新功能：**Unity Build**。简单说，它也是用来加快编译速度的。
+我已经将这部分代码写入 `CMakeLists.txt` 文件中，你将自动获得这个加速功能。
+
+当然，如果你安装的 cmake 尚未达到 3.16, 这个功能也是不会被触发的...
+
+
+## debug::log();
+在 main()函数中，我们发现一个奇怪的 打印函数：`debug::log();` 这是我在整个空项目中，唯一夹带的私货～ 这个函数被定义在 `.../src/debug/` 目录下。通过使用一组类似 **python** 语法的 **格式化参数** 来将信息打印到 命令行终端（console）。这组参数的规则与 第三方库 **fmt** 一致。感兴趣的可以学习 **fmt** 的使用：[fmt](https://fmt.dev/latest/index.html) 
+
+当然，您依旧有权不使用它，甚至彻底删除 `debug` 目录。
+
+
+## 已经安装的 第三方库
+所有的第三方库，推荐安装在 `.../appRootDir/deps/` 目录下。我已帮你安装了3个常用的库：
+- **fmt**: 用来便捷地拼接字符串
+- **glm**: 用来支持数学运算
+- **RapidJSON**: 用来解析 json 文件
+
+在 C++ 中，每一个第三方库，都有其独特的安装方式（包括如何写入 `CMakeLists.txt` 文件）在此暂不展开....
+
+
+## 更多描述有待未来写入
+...
+
+
+
+## 版权协议遵守 [MIT License](LICENSE)
 
 
 ## 欢迎反馈与建议
@@ -174,5 +269,5 @@
 *   E-mail: [turesnake@gmail.com](mailto:turesnake@gmail.com)
 *   E-mail: [turesnake@icloud.com](mailto:turesnake@icloud.com)
 *   QQ: 651700603
-
+*   WeChat：turesnake
 

@@ -81,12 +81,12 @@ configure_file(
 #                     src
 #---------------------------------------------------#
 #-- 创建变量 PIXEL_FILES （是个 list）
-#-- 包含 主进程需要的 cpp 文件
+#-- 包含 主进程需要的所有 cpp 文件
 #   GLOB_RECURSE 会递归访问目录，是一种粗粒度的写法
 #   如果想要精细控制，应该在部分目录 该用 GLOB 
 #   请把所有 .cpp 文件写入 src 目录，然后就不用管了
 FILE(GLOB_RECURSE PIXEL_FILES   
-                        src/sys/*.cpp
+                        src/*.cpp
                         )
 
 #---------------------------------------------------#
@@ -107,7 +107,7 @@ set_target_properties(emptyApp PROPERTIES OUTPUT_NAME "emptyApp")
 
 
 if( ${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.16 )
-    target_precompile_headers( emptyApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/pch/pch.h ) # PCH
+    target_precompile_headers( emptyApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/_pch_/pch.h ) # PCH
     set_target_properties( emptyApp PROPERTIES UNITY_BUILD ON) # UNITY
 endif()
 
@@ -125,15 +125,14 @@ target_include_directories ( emptyApp PUBLIC
 
     # === 项目代码 ===
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/pch
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/test
-    
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/sys
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/sys/main
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/sys/debug
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/sys/classA
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/_pch_
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/debug
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/classA
     # 请在此处 添加更多需要 include 的目录
     # ...
+    
 
     ${EXECUTABLE_OUTPUT_PATH}/sysconfig # vals from camke file
     )

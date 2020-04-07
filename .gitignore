@@ -4,3 +4,9 @@
 /.vscode
 /build/
 /old/
+
+# Visual Studio
+.vs/
+CMakeSettings.json
+Docs/pngs/win10/check_clang_and_cmke.png
+out/

@@ -18,7 +18,7 @@ int main( int argc, char* argv[] ){
     //===== debug::log 示例：
     debug::log(
         "\n\n" \
-        " This is a Empty projetc. \n" \
+        " This is a Empty project. \n" \
         " print some vals:\n" \
         "    int    = {0}\n" \
         "    double = {1}\n" \
