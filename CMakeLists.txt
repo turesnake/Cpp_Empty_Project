@@ -81,10 +81,10 @@ configure_file(
 #                    src (.cpp/.c)
 #---------------------------------------------------#
 #-- 创建变量 PIXEL_FILES （是个 list）
-#-- 包含 主进程需要的所有 .cpp/.c 文件
+#-- 包含 主进程需要的所有 .c/.cpp 文件
 #   GLOB_RECURSE 会递归访问目录，这是一种粗粒度的写法
 #   如果想要精细控制，应该改用 GLOB 
-#   请把所有 .cpp 文件写入 src 目录，及其递归子目录下，
+#   请把所有 .c/.cpp 文件写入 src 目录，及其递归子目录下，
 #   然后就什么都不用管了
 FILE(GLOB_RECURSE   PIXEL_FILES   
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
