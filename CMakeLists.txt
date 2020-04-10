@@ -78,16 +78,18 @@ configure_file(
 
 
 #---------------------------------------------------#
-#                     src
+#                    src (.cpp/.c)
 #---------------------------------------------------#
 #-- 创建变量 PIXEL_FILES （是个 list）
-#-- 包含 主进程需要的所有 cpp 文件
-#   GLOB_RECURSE 会递归访问目录，是一种粗粒度的写法
-#   如果想要精细控制，应该在部分目录 该用 GLOB 
-#   请把所有 .cpp 文件写入 src 目录，然后就不用管了
-FILE(GLOB_RECURSE PIXEL_FILES   
-                        src/*.cpp
-                        )
+#-- 包含 主进程需要的所有 .cpp/.c 文件
+#   GLOB_RECURSE 会递归访问目录，这是一种粗粒度的写法
+#   如果想要精细控制，应该改用 GLOB 
+#   请把所有 .cpp 文件写入 src 目录，及其递归子目录下，
+#   然后就什么都不用管了
+FILE(GLOB_RECURSE   PIXEL_FILES   
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
+                    )
 
 #---------------------------------------------------#
 #                   emptyApp
@@ -113,32 +115,59 @@ endif()
 
 
 #---------------------------------------------------#
-#                   include
+#                   include  （.h/.hpp）
 #---------------------------------------------------#
-# 很粗鲁的写法
-# 每新增一个 include 目录，就要手动添加进这个列表中
+
+# macro():
+# 本宏函数，会在目录 src/ 下检查所有 递归子目录
+# 如果某个目录，内含 .h/.hpp 文件，这个目录就会被收集到一个 list 中
+# 最终返回这个 list
+MACRO( collect_head_dirs return_list )
+    FILE(GLOB_RECURSE   new_list 
+                        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
+                        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp
+                        )
+    SET(dir_list "")
+    FOREACH(file_path ${new_list})
+        GET_FILENAME_COMPONENT(dir_path ${file_path} PATH)
+        SET(dir_list ${dir_list} ${dir_path})
+    ENDFOREACH()
+    LIST(REMOVE_DUPLICATES dir_list)
+    SET(${return_list} ${dir_list})
+ENDMACRO()
+
+# call macro
+collect_head_dirs( src_header_dirs )
+
+# 打印实际收集到的 目录数目 （无关紧要部分）
+list(LENGTH src_header_dirs src_header_dirs_count )
+message(STATUS "[INFO] Found ${src_header_dirs_count} header directories.")
+
+
+
+# ===== 设置 include 目录路径 =====
 target_include_directories ( emptyApp PUBLIC
+
+    # === 跨平台宏文件（cmake创建） ===
+    ${EXECUTABLE_OUTPUT_PATH}/sysconfig
 
     # === 第三方库 ===
     ${CMAKE_CURRENT_SOURCE_DIR}/deps/rapidjson
     ${CMAKE_CURRENT_SOURCE_DIR}/deps/fmt-6.1.2/include
+    # 在此处添加更多 第三方库
+    # 具体写法，请查阅各个 库文档
+    # ...
+
 
     # === 项目代码 ===
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/_pch_
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/main
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/debug
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/classA
-    # 请在此处 添加更多需要 include 的目录
-    # ...
-    
-
-    ${EXECUTABLE_OUTPUT_PATH}/sysconfig # vals from camke file
+    # 自动包含 src/ 目录下的所有 有效目录
+    ${src_header_dirs}
     )
 
 
-#-- 防止 第三方库h文件 报 warnings --
+# 与上一条几乎一样
+# 但是添加了 SYSTEM 关键词。
+# 添加在此的 第三方库，会被屏蔽掉一部分 warnings
 target_include_directories ( emptyApp SYSTEM PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/deps
     ${CMAKE_CURRENT_SOURCE_DIR}/deps/glm.9.9.5
