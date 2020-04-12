@@ -1,10 +1,9 @@
 # Cpp_Empty_Project
 **Cpp_Empty_Project** 是一个 跨平台的，基于cmake工具的，C++17空项目。
 
-这是一个面相 C++ 新手向的，辅助用项目。
+这是一个面相 C++ 新手的，辅助用项目。
 
-你可以以此项目为基础，搭建出自己的 跨平台 C++ 程序。但由于，cmake 在 win10 平台的使用有点小麻烦（下文提及）。所以这个项目也许更适合那些 Mac/Linux 用户。如果大家有更好的实现跨平台的方式，欢迎交流～
-
+你可以以此项目为基础，搭建出自己的 跨平台 C++ 程序。
 
 
 ## 我该下载哪个分支
@@ -116,7 +115,7 @@
 ![open a local folder](Docs/pngs/win10/000.png)
 
 
-进入主界面后，VS 会主动识别到根目录中的一份配置文件：`CMakeSettings.json`，并且自动建立一份名为 `x64-Clang-Release` 的 配置方案（configurations）。此时你会看到 VS **Output 面板**中 正在做有关 cmake 的解析和生成工作。 稍等数秒后，你会在 **Output 面板** 中等来一句：
+进入主界面后，VS 会主动识别出一份根目录下的配置文件：`CMakeSettings.json`，并且根据这份文件内的描述，自动创建一份名为 `x64-Clang-Release` 的 配置方案（configurations）。此时你会看到 VS: **Output 面板**中 正在做有关 cmake Cache 的解析和生成工作。 稍等数秒后，你会在 **Output 面板** 中看到：
 
     CMake generation finished.
 

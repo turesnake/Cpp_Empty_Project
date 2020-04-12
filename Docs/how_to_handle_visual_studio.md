@@ -1,7 +1,7 @@
-# 如何手动配置 Win10: Viual Studio 来生成 tprpix 项目的 cmake Cache
+# 如何手动配置 Win10: Viual Studio，来生成 tprpix 项目的 cmake Cache
 
 在原生项目中，我们准备了一个专用于 **Win10** 平台的文件：`CMakeSettings.json`。它被放置在根目录中。
-每当使用 VS 打开 **tprpix** 项目时，这个文件也会被自动读取，进而自动帮助我们配置出正确的 cmake 配置文件。
+每当使用 VS 打开 **tprpix** 项目时，这个文件就会被自动读取，进而自动帮助我们配置出正确的 cmake Cache。
 
 **万一这个过程失败了，我们就需要通过手动配置的方式，来实现 cmake Cache 的生成。**
 
