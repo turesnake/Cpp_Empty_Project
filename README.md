@@ -122,7 +122,7 @@
 这表明 cmake Cache 生成成功了！
 
 
-如果在这一过程中发生错误，请阅读 [这份文章](Docs/how_to_handle_visual_studio.md)，学习如何以 **手动配置** 的方式，来生成 cmake Cache。
+**注意:** 如果在这一过程中发生错误，请阅读 [这份文章](Docs/how_to_handle_visual_studio.md)，学习如何以 **手动配置** 的方式，来生成 cmake Cache。
 
 
 在 cmake Cache 生成成功后。在 **Visual Studio 2019** 左上方的 `Build` 菜单中，找到 `Build All` 按钮，点击它，开始正式的 **Build** 工作。（也可以使用快捷键:`F7`） ->
