@@ -26,7 +26,7 @@ elseif( UNIX AND NOT APPLE )
     option( TPR_OS_UNIX_ " UNIX " ON )
     message( STATUS "___UNIX___" )
 
-#-- 当使用 Virsual Studio 编译 cmake项目时，可用 WIN32
+#-- 当使用 Visual Studio 编译 cmake项目时，可用 WIN32
 #   如果出错，尝试改用 MSVC
 elseif( WIN32 )
     option( TPR_OS_WIN32_ " WIN32 " ON )
